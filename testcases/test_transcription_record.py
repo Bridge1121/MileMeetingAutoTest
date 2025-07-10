@@ -12,7 +12,7 @@ class TestTranscriptionRecord:
     @allure.story("转写记录页面布局样式正常，文案内容正确")
     @allure.title("转写记录页面布局样式正常，文案内容正确")
     @allure.feature("转写记录页面布局样式正常，文案内容正确")
-    def test_transcription_record_layout(self, driver):
+    def test_transcription_record_layout_and_search(self, driver):
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -37,6 +37,32 @@ class TestTranscriptionRecord:
         trans_record.open_transcription_record()
         #修改分页设置
         trans_record.modify_page_setting()
+
+    @allure.story("会议记录分享")
+    @allure.title("在历史记录列表中选中会议记录点击分享按钮，会弹出分享弹框，复制分享链接")
+    @allure.feature("在历史记录列表中选中会议记录点击分享按钮，会弹出分享弹框，复制分享链接")
+    def test_transcription_record_share(self):
+        # 返回到首页
+        home = HomePage(driver)
+        home.back_home()
+        trans_record = TranscriptionRecordPage(driver)
+        #点击会议记录
+        trans_record.open_transcription_record()
+        #分享会议记录
+        trans_record.share_transcription_record()
+
+    @allure.story("会议记录下载")
+    @allure.title("点击下载按钮，弹出下载弹窗，下载音频，下载会议纪要、翻译、ai摘要")
+    @allure.feature("点击下载按钮，弹出下载弹窗，下载音频，下载会议纪要、翻译、ai摘要")
+    def test_transcription_record_download(self):
+        # 返回到首页
+        home = HomePage(driver)
+        home.back_home()
+        trans_record = TranscriptionRecordPage(driver)
+        #点击会议记录
+        trans_record.open_transcription_record()
+        #下载会议记录
+        trans_record.download_transcription_record_files()
 
 
 
