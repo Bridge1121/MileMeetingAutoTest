@@ -1,3 +1,5 @@
+import time
+
 from utils.wait_utils import WaitUtils
 from selenium.webdriver.common.by import By
 
@@ -30,11 +32,19 @@ class SensitiveWordsPage:
         #点击确认
         self.driver.find_element(By.XPATH,'/html/body/section/section/main'
                                           '/section/main/div[2]/div[2]/div/div[3]/span/button[2]').click()
+        time.sleep(2)
 
 
     #删除敏感词
     def delete_sensitive_words(self):
-        pass
+        #判断是否有删除按钮
+        if self.wait.wait_for_element_visible((By.XPATH,'/html/body/section/section/main/section'
+                                                        '/main/div[2]/div/div/div/div[4]/div/div/i')):
+            self.driver.find_element(By.XPATH,'/html/body/section/section/main/section'
+                                            '/main/div[2]/div/div/div/div[4]/div/div/i').click()
+            #弹窗点击确定
+            self.driver.find_element(By.XPATH,'/html/body/div[1]/div/div[3]/button[2]').click()
+            time.sleep(2)
 
 
     #搜索敏感词

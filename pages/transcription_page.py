@@ -11,13 +11,33 @@ class TranscriptionPage:
         self.driver = driver
         self.wait = WaitUtils(driver, 10)
 
-    #开始转写
+    #开始中文转写
     def start_transcription(self):
         # 开始实时转写
         self.driver.find_element(By.XPATH,
-                                 '/html/body/section/section/main/section/main/div[2]/div/div/div[1]/div[2]/div[1]/div/div/div[1]').click()
+                                 '/html/body/section/section/main/section/main/div[2]'
+                                 '/div/div/div[1]/div[2]/div[1]/div/div/div[1]').click()
         #修改麦克风
         self.driver.find_element(By.XPATH,'/html/body/section/div[12]/div/div[2]/div/div[2]/div[3]/div/div/div/div/div[1]/input').click()
+        # 点击开始会议
+        self.driver.find_element(By.XPATH, '/html/body/section/div[12]/div/div[2]/div/div[3]/button').click()
+        time.sleep(5)
+
+
+    #开始英文转写
+    def start_transcription_english(self):
+        # 启动英文转写
+        self.driver.find_element(By.XPATH,
+                                 '/html/body/section/section/main/section/main'
+                                 '/div[2]/div/div/div[1]/div[2]/div[1]/div/div/div[1]').click()
+        #语言修改成英文
+        self.driver.find_element(By.XPATH,'/html/body/section/div[12]/div/div[2]'
+                                          '/div/div[2]/div[2]/div/div[1]/div'
+                                          '/div[1]/span/span/i').click()
+        #选择中英混合
+        self.driver.find_element(By.XPATH,'/html/body/section/div[12]/div/div[2]/div'
+                                          '/div[2]/div[2]/div/div[1]/div/div[2]/div[1]'
+                                          '/div[1]/ul/li[2]/span').click()
         # 点击开始会议
         self.driver.find_element(By.XPATH, '/html/body/section/div[12]/div/div[2]/div/div[3]/button').click()
         time.sleep(5)

@@ -21,14 +21,14 @@ class TestTranscription:
         home.back_home()
         trans = TranscriptionPage(driver)
         #开始转写
-        trans.start_transcription()
+        trans.start_transcription_english()
         #暂停转写
         trans.pause_meeting()
         time.sleep(10)
         #继续转写
         trans.resume_meeting()
         #录音1分钟后暂停转写
-        time.sleep(60)
+        time.sleep(10)
         #点击暂停
         trans.pause_meeting()
         #结束会议
