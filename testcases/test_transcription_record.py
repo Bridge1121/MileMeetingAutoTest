@@ -1,7 +1,10 @@
+import time
+
 import allure
 import pytest
 
 from pages.home_page import HomePage
+from pages.transcription_page import TranscriptionPage
 from pages.transcription_record_page import TranscriptionRecordPage
 
 
@@ -63,6 +66,68 @@ class TestTranscriptionRecord:
         trans_record.open_transcription_record()
         #下载会议记录
         trans_record.download_transcription_record_files()
+
+    @allure.story("会议记录删除")
+    @allure.title("单个记录删除取消再确认，批量删除取消再确认")
+    @allure.feature("单个记录删除取消再确认，批量删除取消再确认")
+    def test_transcription_record_delete(self):
+        # 返回到首页
+        home = HomePage(driver)
+        home.back_home()
+        trans_record = TranscriptionRecordPage(driver)
+        #点击会议记录
+        trans_record.open_transcription_record()
+        #删除会议记录
+        trans_record.delete_transcription_record()
+        trans_record.delete_transcription_record_batch()
+
+    @allure.story("会议记录语篇规整")
+    @allure.title("不满一分钟的记录，提示无法进行语篇规整")
+    @allure.feature("不满一分钟的记录，提示无法进行语篇规整")
+    def test_transcription_record_distinguish_speaker(self):
+        # 返回到首页
+        home = HomePage(driver)
+        home.back_home()
+        #开始实时转写
+        transcription = TranscriptionPage(driver)
+        transcription.start_transcription()
+        time.sleep(10)
+        #点击结束
+        transcription.end_meeting()
+        time.sleep(10)
+        trans_record = TranscriptionRecordPage(driver)
+        #点击会议记录
+        trans_record.open_transcription_record()
+        #点击语篇规整
+        trans_record.click_distinguish_speaker()
+
+    @allure.story("会议记录语篇规整")
+    @allure.title("一分钟以上的记录，进行语篇规整、一键纪要、翻译")
+    @allure.feature("一分钟以上的记录，进行语篇规整、一键纪要、翻译")
+    def test_transcription_record_distinguish_speaker_and_key_summary_and_translation(self):
+        # 返回到首页
+        home = HomePage(driver)
+        home.back_home()
+        # 开始实时转写
+        transcription = TranscriptionPage(driver)
+        transcription.start_transcription()
+        time.sleep(70)
+        # 点击结束
+        transcription.end_meeting()
+        time.sleep(10)
+
+        #点击语篇规整
+        trans_record = TranscriptionRecordPage(driver)
+        # 点击查找
+        trans_record.find_transcription_content("你")
+        time.sleep(2)
+        trans_record.click_distinguish_speaker()
+        trans_record.click_one_key_summary()
+        trans_record.click_translation()
+
+
+    
+
 
 
 

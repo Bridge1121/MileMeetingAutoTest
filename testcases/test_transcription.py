@@ -34,6 +34,22 @@ class TestTranscription:
         #结束会议
         trans.end_meeting()
 
+    @allure.story("实时转写中添加热词")
+    @allure.feature("实时转写中添加热词")
+    @allure.title("实时转写中添加热词")
+    def test_transcription_add_hot_word(self,driver):
+        #返回到首页
+        home = HomePage(driver)
+        home.back_home()
+        trans = TranscriptionPage(driver)
+        #开始转写
+        trans.start_transcription()
+        #添加热词
+        trans.add_hot_word("好困")
+        #结束会议
+        trans.end_meeting()
+
+
     @allure.story("切换麦克风")
     @allure.feature(
         "实时转写页面点击麦克风图标，弹窗显示当前正在拾音的麦克风和扬声器。点击默认的音源设备名称可下拉选择其他的音源设备")

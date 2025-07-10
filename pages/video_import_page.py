@@ -1,6 +1,7 @@
 import os
 import time
 
+from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
 from utils.wait_utils import WaitUtils
@@ -59,7 +60,7 @@ class VideoImportPage:
                                            '/div/div[1]/div/div/div[2]/footer/span[2]/div[1]').click()
         time.sleep(2)
 
-    #上传中文音频
+    #上传中文音频，输入热词
     def upload_video_chinese(self,video_path=UPLOAD_CH_FILE_PATH):
         if video_path!=None:
             #点击导入音频
@@ -88,6 +89,10 @@ class VideoImportPage:
             #QA整理
             self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/article/div/div[1]/div/div/div[2]/div/div[2]/div[1]/div[2]/div/label[6]/span[1]/span').click()
             time.sleep(UPLOAD_INTERVAL)
+            #输入热词
+            self.driver.find_element(By.XPATH,'//*[@id="app"]/section/main/section/main/div[2]/article'
+                                              '/div/div[1]/div/div/div[2]/div/div[2]'
+                                              '/div[1]/div[3]/div/div/input').send_keys("打野")
             # 等待上传完成
             self.wait.wait_for_element_clickable((By.XPATH,
                                                   '/html/body/section/section/main/section/main/div[2]/article/div/div[1]/div/div/div[2]/footer/span[2]/div[2]'))
@@ -251,6 +256,18 @@ class VideoImportPage:
                                                   '/html/body/section/section/main/section/main/div[2]/article/div/div[1]/div/div/div[2]/footer/span[2]/div[2]'))
             self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main/'
                                                'div[2]/article/div/div[1]/div/div/div[2]/footer/span[2]/div[2]').click()
+
+
+    #上传文件时输入热词
+    def input_hot_word_while_upload(self, hot_word):
+        # 输入热词
+        hot_word_input = self.driver.find_element(By.XPATH, '//*[@id="app"]/section/main/section/main/div[2]/article'
+                                           '/div/div[1]/div/div/div[2]/div/div[2]'
+                                           '/div[1]/div[3]/div/div/input')
+        hot_word_input.send_keys(hot_word)
+        #删除输入的热词
+        for i in range(len(hot_word)):
+            hot_word_input.send_keys(Keys.BACKSPACE)
 
 
 

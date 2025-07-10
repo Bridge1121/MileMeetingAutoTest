@@ -79,5 +79,20 @@ class TestVideoImport:
         #批量导入音频文件
         video_import_page.upload_all_audio_files_and_clear()
 
+    @allure.story("文件上传页输入专有词汇格式")
+    @allure.title("专有词汇格式不正确时，在文本框下方红色字体提示“专有词汇格式不正确，"
+                  "输入含特殊字符的内容、含数字的内容、含特殊字符的内容")
+    @allure.feature("专有词汇格式不正确时，在文本框下方红色字体提示“专有词汇格式不正确，"
+                  "输入含特殊字符的内容、含数字的内容、含特殊字符的内容")
+    def test_input_hot_word_while_upload(self, driver):
+        home_page = HomePage(driver)
+        home_page.back_home()
+        video_import_page = VideoImportPage(driver)
+        # 输入专有词汇
+        video_import_page.input_hot_word_while_upload("测试&")
+        video_import_page.input_hot_word_while_upload("123456")
+        video_import_page.input_hot_word_while_upload("测试@")
+
+
 
 

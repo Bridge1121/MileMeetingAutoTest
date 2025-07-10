@@ -248,5 +248,40 @@ class TranscriptionPage:
         self.driver.find_element(By.XPATH, '/html/body/div[2]/div[1]/div[2]/div/div[3]').click()
 
 
+    #添加热词
+    def add_hot_word(self,word):
+        #点击专有词汇
+        self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
+                                           '/div[2]/div/div/div/div[1]/div[1]/div[1]/div[2]/div[2]/svg').click()
+        #判断是否有添加热词按钮
+        if self.wait.wait_for_element_clickable((By.XPATH, '/html/body/section/section/main/section/main/div[2]'
+                                                           '/div/div/div/div[1]/div[3]/div[1]/div/div[2]'
+                                                           '/div/div/div/div/div[2]/div/button/span')):
+            self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
+                                               '/div[2]/div/div/div/div[1]/div[3]/div[1]/div/div[2]'
+                                               '/div/div/div/div/div[2]/div/button/span').click()
+        else:
+            #点击管理热词
+            self.driver.find_element(By.XPATH, '/html/body/section/section/main'
+                                               '/section/main/div[2]/div/div/div/div[1]/div[3]/div[1]'
+                                               '/div/div[2]/div/div/div/div/div[1]/button/span').click()
+        #输入热词
+        hot_word_text = self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
+                                           '/div[2]/div/div/div/div[1]/div[3]/div[1]/div'
+                                           '/div[2]/div/div/div/div/div[3]/div[2]/div/div[2]'
+                                           '/div[1]/div/div[1]/textarea')
+        hot_word_text.send_keys(word)
+        #点击保存
+        self.driver.find_element(By.XPATH, '/html/body/section/section'
+                                           '/main/section/main/div[2]/div/div/div'
+                                           '/div[1]/div[3]/div[1]/div/div[2]/div/div/div'
+                                           '/div/div[3]/div[2]/div/div[2]/div[1]/div/div[2]/div/button[2]').click()
+        #弹窗点击确定
+        self.driver.find_element(By.XPATH, '/html/body/div[4]/div/div[3]/span/button[2]').click()
+        #关闭对话框
+        self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
+                                           '/div[2]/div/div/div/div[1]/div[3]/div[1]/div/div[1]/button/i').click()
+
+
 
 
