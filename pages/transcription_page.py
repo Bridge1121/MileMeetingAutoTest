@@ -48,8 +48,10 @@ class TranscriptionPage:
         #实时转写时点击设置
         self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[2]/span[2]/img').click()
         #点击选择麦克风
-        self.driver.find_element(By.XPATH,'/html/body/section/div[12]/div/div[2]/div/div[2]/div/div[1]/input').click()
-        self.driver.find_element(By.XPATH,'/html/body/div[5]/div[1]/div[1]/ul/li').click()
+        # self.driver.find_element(By.XPATH,'/html/body/section/div[12]/div/div[2]/div/div[2]/div/div[1]/input').click()
+        # time.sleep(2)
+        # self.driver.find_element(By.XPATH,'/html/body/div[5]/div[1]/div[1]/ul/li').click()
+        time.sleep(2)
         #确认修改
         self.driver.find_element(By.XPATH,'/html/body/section/div[12]/div/div[2]/div/div[3]/button').click()
 
@@ -67,10 +69,12 @@ class TranscriptionPage:
 
     #结束会议
     def end_meeting(self):
+        time.sleep(2)
         #点击结束
         self.driver.find_element(By.CLASS_NAME,'stop-button').click()
+        time.sleep(2)
         #点击弹窗结束
-        self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div[3]/button[2]').click()
+        self.driver.find_element(By.XPATH,'/html/body/div/div/div[3]/button[2]').click()
         time.sleep(2)
 
 
@@ -83,23 +87,26 @@ class TranscriptionPage:
     def open_manual_speaker_distinguish(self):
         #点击下拉框
         self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/div[1]/div[1]/div[1]/span[1]/div/div[1]/span/span/i').click()
+        time.sleep(4)
         #选择手动区分发言人
-        self.driver.find_element(By.XPATH,'/html/body/div[3]/div[1]/div[1]/ul/li[2]/span').click()
+        self.driver.find_element(By.XPATH,'/html/body/div[5]/div[1]/div[1]/ul/li[2]').click()
 
     #不区分发言人
     def close_speaker_distinguish(self):
         #点击下拉框
         self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/div[1]/div[1]/div[1]/span[1]/div/div/span/span/i').click()
+        time.sleep(4)
         #选择不区分发言人
-        self.driver.find_element(By.XPATH,'/html/body/div[3]/div[1]/div[1]/ul/li[1]/span').click()
+        self.driver.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[1]/ul/li[1]').click()
 
     #打开声纹区分发言人
     def open_voice_print_speaker_distinguish(self):
         # 点击下拉框
         self.driver.find_element(By.XPATH,
                                  '/html/body/section/section/main/section/main/div[2]/div/div/div/div[1]/div[1]/div[1]/span[1]/div/div/span/span/i').click()
+        time.sleep(4)
         # 选择声纹区分发言人
-        self.driver.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[1]/ul/li[3]/span').click()
+        self.driver.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[1]/ul/li[3]').click()
 
 
     #修改手动区分发言人名称
@@ -112,6 +119,7 @@ class TranscriptionPage:
             speaker_name.send_keys(Keys.BACKSPACE)
         #输入新的说话人名称
         speaker_name.send_keys(new_name)
+
         speaker_name.send_keys(Keys.ENTER)
 
     # 修改手动区分发言人名称
@@ -270,21 +278,22 @@ class TranscriptionPage:
 
     #添加热词
     def add_hot_word(self,word):
+        time.sleep(2)
         #点击专有词汇
-        self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
-                                           '/div[2]/div/div/div/div[1]/div[1]/div[1]/div[2]/div[2]/svg').click()
+        self.driver.find_element(By.XPATH, '//*[@id="app"]/section/main/section/main/div[2]/div/div'
+                                           '/div/div[1]/div[1]/div[1]/div[2]/div[2]').click()
         #判断是否有添加热词按钮
-        if self.wait.wait_for_element_clickable((By.XPATH, '/html/body/section/section/main/section/main/div[2]'
-                                                           '/div/div/div/div[1]/div[3]/div[1]/div/div[2]'
-                                                           '/div/div/div/div/div[2]/div/button/span')):
-            self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
-                                               '/div[2]/div/div/div/div[1]/div[3]/div[1]/div/div[2]'
-                                               '/div/div/div/div/div[2]/div/button/span').click()
-        else:
-            #点击管理热词
-            self.driver.find_element(By.XPATH, '/html/body/section/section/main'
-                                               '/section/main/div[2]/div/div/div/div[1]/div[3]/div[1]'
-                                               '/div/div[2]/div/div/div/div/div[1]/button/span').click()
+        # if self.wait.wait_for_element_clickable((By.XPATH, '/html/body/section/section/main/section/main/div[2]'
+        #                                                    '/div/div/div/div[1]/div[3]/div[1]/div/div[2]'
+        #                                                    '/div/div/div/div/div[2]/div/button/span')):
+        #     self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
+        #                                        '/div[2]/div/div/div/div[1]/div[3]/div[1]/div/div[2]'
+        #                                        '/div/div/div/div/div[2]/div/button/span').click()
+        # else:
+        #点击管理热词
+        self.driver.find_element(By.XPATH, '/html/body/section/section/main'
+                                           '/section/main/div[2]/div/div/div/div[1]/div[3]/div[1]'
+                                           '/div/div[2]/div/div/div/div/div[1]/button/span').click()
         #输入热词
         hot_word_text = self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
                                            '/div[2]/div/div/div/div[1]/div[3]/div[1]/div'
@@ -296,8 +305,10 @@ class TranscriptionPage:
                                            '/main/section/main/div[2]/div/div/div'
                                            '/div[1]/div[3]/div[1]/div/div[2]/div/div/div'
                                            '/div/div[3]/div[2]/div/div[2]/div[1]/div/div[2]/div/button[2]').click()
+        time.sleep(4)
         #弹窗点击确定
         self.driver.find_element(By.XPATH, '/html/body/div[4]/div/div[3]/span/button[2]').click()
+        time.sleep(4)
         #关闭对话框
         self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
                                            '/div[2]/div/div/div/div[1]/div[3]/div[1]/div/div[1]/button/i').click()

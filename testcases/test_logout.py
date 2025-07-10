@@ -24,6 +24,10 @@ class TestLogout:
     @allure.title("正在实时转写过程中，点击退出账号，弹窗提示需先结束实时转写，然后再退出系统，点击确定后再退出账号")
     @allure.feature("正在实时转写过程中，点击退出账号，弹窗提示需先结束实时转写，然后再退出系统，点击确定后再退出账号")
     def test_logout_while_transcription(self,driver):
+        #单独运行时添加
+        login = LoginPage(driver)
+        login.open()
+        login.login()
         logout = LogoutPage(driver)
         logout.logout_transcription()
 

@@ -34,7 +34,7 @@ class LogoutPage:
         self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main/div[2]/div/div/div[1]/div[2]/div[1]/div/div/div[1]').click()
         #点击开始会议
         self.driver.find_element(By.XPATH, '/html/body/section/div[12]/div/div[2]/div/div[3]/button').click()
-        time.sleep(1)
+        time.sleep(3)
         #点击允许使用麦克风
         ActionChains(self.driver).move_by_offset(636,380).click().perform()
         time.sleep(5)
@@ -43,5 +43,6 @@ class LogoutPage:
         self.wait.wait_for_element_visible(("xpath", '/html/body/div/div[1]/div[2]/div/div/span'))
         #点击退出登录
         self.driver.find_element(By.XPATH, '/html/body/div/div[1]/div[2]/div/div/span').click()
+        time.sleep(2)
         #点击结束并退出
         self.driver.find_element(By.XPATH, '/html/body/div[3]/div/div[3]/button[2]/span').click()

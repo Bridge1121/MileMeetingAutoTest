@@ -13,6 +13,12 @@ class VideoImportPage:
         self.wait = WaitUtils(driver, 60)
         self.driver = driver
 
+    #打开导入音频界面
+    def open_video_import_page(self):
+        # 点击导入音频
+        self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main/div[2]/div'
+                                           '/div/div[1]/div[2]/div[2]/div/div/div[1]').click()
+
     # 批量上传视频文件，清空文件
     def upload_all_video_files_and_clear(self, video_dir_path=UPLOAD_VIDEO_DIR, video_suffixes=VIDEO_SUFFIXES):
         count = 0
@@ -64,7 +70,8 @@ class VideoImportPage:
     def upload_video_chinese(self,video_path=UPLOAD_CH_FILE_PATH):
         if video_path!=None:
             #点击导入音频
-            self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div[1]/div[2]/div[2]/div/div/div[1]').click()
+            self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div'
+                                              '/div/div[1]/div[2]/div[2]/div/div/div[1]').click()
             #点击选择音频文件
             # choose_btn = self.driver.find_element_by_xpath('/html/body/section/section/main/section/main/div[2]/article/div/div[1]/div/div/div[1]/text()')
             # choose_btn.click()
@@ -76,9 +83,9 @@ class VideoImportPage:
 
             #选择所有ai工具
             #主题摘要
-            self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main'
-                                              '/div[2]/article/div/div[1]/div/div/div[2]/div/'
-                                              'div[2]/div[1]/div[2]/div/label[3]/span[1]/span').click()
+            # self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main'
+            #                                   '/div[2]/article/div/div[1]/div/div/div[2]/div/'
+            #                                   'div[2]/div[1]/div[2]/div/label[3]/span[1]/span').click()
             #语篇规整
             self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/article/div/div[1]/div/div/div[2]/div/div[2]/div[1]/div[2]/div/label[3]/span[1]/span').click()
             time.sleep(2)
@@ -94,23 +101,25 @@ class VideoImportPage:
                                               '/div/div[1]/div/div/div[2]/div/div[2]'
                                               '/div[1]/div[3]/div/div/input').send_keys("打野")
             # 等待上传完成
-            self.wait.wait_for_element_clickable((By.XPATH,
-                                                  '/html/body/section/section/main/section/main/div[2]/article/div/div[1]/div/div/div[2]/footer/span[2]/div[2]'))
-            self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main/'
-                                               'div[2]/article/div/div[1]/div/div/div[2]/footer/span[2]/div[2]').click()
-            time.sleep(10)
+            time.sleep(30)
+            self.driver.find_element(By.XPATH, '//*[@id="app"]/section/main/section/main/div[2]/article/div'
+                                               '/div[1]/div/div/div[2]/footer/span[2]/div[2]').click()
+            #等待转写完成
+            time.sleep(UPLOAD_INTERVAL)
             #点击会议记录
-            self.wait.wait_for_element_clickable((By.XPATH,
-                                                  '/html/body/section/section/main/section/main/div[2]/div/div/div/div[2]'
-                                                  '/div[1]/div[1]/div[3]/table/tbody/tr[1]/td[2]/div/div/div/div[1]/span[1]/span[1]'))
-            self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main/div[2]/div/div/div/div[2]'
-                                              '/div[1]/div[1]/div[3]/table/tbody/tr[1]/td[2]/div/div/div/div[1]/span[1]/span[1]').click()
-            #查看会议纪要
-            self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div[3]/div[2]'
-                                              '/div/div[1]/div/div[1]/div/div/div/div[3]/span').click()
-            #返回列表页
-            self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]'
-                                              '/div/div/div[1]/div[1]/a/i').click()
+            # self.wait.wait_for_element_clickable((By.XPATH,
+            #                                       '/html/body/section/section/main/section/main/div[2]/div/div/div/div[2]'
+            #                                       '/div[1]/div[1]/div[3]/table/tbody/tr[1]/td[2]/div/div/div/div[1]/span[1]/span[1]'))
+            if self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main/div[2]/div/div/div/div[2]'
+                                              '/div[1]/div[1]/div[3]/table/tbody/tr[1]/td[2]/div/div/div/div[1]/span[1]/span[1]'):
+                self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main/div[2]/div/div/div/div[2]'
+                                                  '/div[1]/div[1]/div[3]/table/tbody/tr[1]/td[2]/div/div/div/div[1]/span[1]/span[1]').click()
+                #查看会议纪要
+                self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div[3]/div[2]'
+                                                  '/div/div[1]/div/div[1]/div/div/div/div[3]/span').click()
+                #返回列表页
+                self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]'
+                                                  '/div/div/div[1]/div[1]/a/i').click()
             time.sleep(2)
 
     #上传英文音频
@@ -134,9 +143,9 @@ class VideoImportPage:
             upload_input.send_keys(video_path)
             #选择所有ai工具
             #主题摘要
-            self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main'
-                                              '/div[2]/article/div/div[1]/div/div/div[2]/div/'
-                                              'div[2]/div[1]/div[2]/div/label[3]/span[1]/span').click()
+            # self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main'
+            #                                   '/div[2]/article/div/div[1]/div/div/div[2]/div/'
+            #                                   'div[2]/div[1]/div[2]/div/label[3]/span[1]/span').click()
             #语篇规整
             self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]'
                                               '/article/div/div[1]/div/div/div[2]/div/div[2]/div[1]'
@@ -184,9 +193,9 @@ class VideoImportPage:
             upload_input.send_keys(video_path)
             #选择所有ai工具
             #主题摘要
-            self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main'
-                                              '/div[2]/article/div/div[1]/div/div/div[2]/div/'
-                                              'div[2]/div[1]/div[2]/div/label[3]/span[1]/span').click()
+            # self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main'
+            #                                   '/div[2]/article/div/div[1]/div/div/div[2]/div/'
+            #                                   'div[2]/div[1]/div[2]/div/label[3]/span[1]/span').click()
             #语篇规整
             self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]'
                                               '/article/div/div[1]/div/div/div[2]/div/div[2]/div[1]'
@@ -234,9 +243,9 @@ class VideoImportPage:
 
             # 选择所有ai工具
             # 主题摘要
-            self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
-                                               '/div[2]/article/div/div[1]/div/div/div[2]/div/'
-                                               'div[2]/div[1]/div[2]/div/label[3]/span[1]/span').click()
+            # self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
+            #                                    '/div[2]/article/div/div[1]/div/div/div[2]/div/'
+            #                                    'div[2]/div[1]/div[2]/div/label[3]/span[1]/span').click()
             # 语篇规整
             self.driver.find_element(By.XPATH,
                                      '/html/body/section/section/main/section/main/div[2]/article/div/div[1]/div/div/div[2]/div/div[2]/div[1]/div[2]/div/label[3]/span[1]/span').click()

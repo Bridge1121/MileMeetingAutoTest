@@ -3,6 +3,7 @@ import pytest
 
 from pages.home_page import HomePage
 from pages.hot_word_page import HotWordPage
+from pages.login_page import LoginPage
 
 
 @allure.feature("测试热词管理")
@@ -34,7 +35,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("热词输入2个汉字，10个汉字")
     @allure.feature("热词输入2个汉字，10个汉字")
+    @pytest.mark.order(0)
     def test_hot_word_input_chinese(self, driver):
+        # 单独运行要加这两行
+        login = LoginPage(driver)
+        login.open()
+        login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
