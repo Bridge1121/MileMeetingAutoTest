@@ -1,0 +1,1 @@
+通过pytest+selenium+allure实现的web自动化测试项目
