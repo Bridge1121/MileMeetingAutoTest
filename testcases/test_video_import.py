@@ -1,3 +1,5 @@
+import time
+
 import allure
 import pytest
 
@@ -16,13 +18,14 @@ class TestVideoImport:
     @pytest.mark.order(1)
     def test_cn_video_upload(self, driver):
         # 单独运行要加这两行
-        login = LoginPage(driver)
-        login.open()
-        login.login()
+        # login = LoginPage(driver)
+        # login.open()
+        # login.login()
         home_page = HomePage(driver)
         home_page.back_home()
         #导入中文音频
         video_import_page = VideoImportPage(driver)
+        video_import_page.open_video_import_page()
         video_import_page.upload_video_chinese()
 
     @allure.story("导入英文音频，AI工具全选")
@@ -38,7 +41,9 @@ class TestVideoImport:
         home_page.back_home()
         # 导入英文音频
         video_import_page = VideoImportPage(driver)
+        video_import_page.open_video_import_page()
         video_import_page.upload_video_english()
+        time.sleep(2)
 
     @allure.story("导入粤语音频，AI工具全选")
     @allure.title("导入粤语音频，AI工具全选")
@@ -53,7 +58,9 @@ class TestVideoImport:
         home_page.back_home()
         # 导入粤语音频
         video_import_page = VideoImportPage(driver)
+        video_import_page.open_video_import_page()
         video_import_page.upload_video_yuewen()
+        time.sleep(5)
 
     @allure.story("导入四川话音频，AI工具全选")
     @allure.title("导入四川话音频，AI工具全选")
@@ -68,6 +75,7 @@ class TestVideoImport:
         home_page.back_home()
         # 导入粤语音频
         video_import_page = VideoImportPage(driver)
+        video_import_page.open_video_import_page()
         video_import_page.upload_video_sichuan()
 
     @allure.story("批量导入各种格式的音频")

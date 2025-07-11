@@ -7,4 +7,4 @@ UPLOAD_AUDIO_DIR = r"C:\Users\wenxiu.tian_sx\Desktop\测试文件\视频格式\�
 UPLOAD_VIDEO_DIR = r"C:\Users\wenxiu.tian_sx\Desktop\测试文件\视频格式\视频格式\视频格式"  # 批量上传视频文件的文件夹路径
 AUDIO_SUFFIXES = ('.mp3', '.wav', '.m4a','.aac','.amr','.wma','.opus','.ogg')  # 音频支持的格式
 VIDEO_SUFFIXES = ('.asf', '.avi', '.flv','.mkv','.mov','.mp4','.wmv','.vob','.3gp')  # 视频支持的格式
-
+URL= "https://10.12.7.166:9443/"

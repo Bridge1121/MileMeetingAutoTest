@@ -1,5 +1,4 @@
 import time
-from telnetlib import EC
 
 from selenium.webdriver import Keys, ActionChains
 from selenium.webdriver.support import wait
@@ -18,6 +17,15 @@ class TranscriptionRecordPage:
     def open_transcription_record(self):
         self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/aside'
                                           '/div/div/div/div/div[2]/div/span').click()
+        time.sleep(2)
+
+
+    #进入一条会议记录
+    def open_transcription_record_click(self):
+        self.driver.find_element(By.XPATH,'//*[@id="app"]/section/main/section/main/div[2]/div'
+                                          '/div/div/div[2]/div[1]/div[1]/div[3]/table/tbody'
+                                          '/tr[1]/td[2]/div/div/div/div[1]/span[1]').click()
+        time.sleep(2)
 
 
 
@@ -44,8 +52,9 @@ class TranscriptionRecordPage:
     #修改分页设置
     def modify_page_setting(self):
         #点击分页下拉框
-        self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/div[2]/div[2]/div/span[2]/div/div[1]/input').click()
-        self.driver.find_element(By.XPATH,'/html/body/div[2]/div[1]/div[1]/ul/li[1]/span').click()
+        # self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/div[2]/div[2]/div/span[2]/div/div[1]/input').click()
+        # time.sleep(2)
+        # self.driver.find_element(By.XPATH,'/html/body/div[2]/div[1]/div[1]/ul/li[1]').click()
         time.sleep(2)
         #点击页面跳转按钮
         self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/div[2]/div[2]/div/button[2]/i').click()
@@ -58,9 +67,12 @@ class TranscriptionRecordPage:
         back_btn.click()
         time.sleep(2)
         #页面跳转输入框
-        self.driver.find_element(By.XPATH,'/html/body/section/section/main/section'
+        num_input = self.driver.find_element(By.XPATH,'/html/body/section/section/main/section'
                                           '/main/div[2]/div/div/div/div[2]'
-                                          '/div[2]/div/span[3]/div/input').send_keys('1')
+                                          '/div[2]/div/span[3]/div/input')
+        num_input.clear()
+        time.sleep(1)
+        num_input.send_keys('2')
 
 
 
@@ -68,14 +80,14 @@ class TranscriptionRecordPage:
     #列表文件名称修改，全删除不输入，修改后不保存，输入40个字符，输入英文数字特殊字符
     def modify_file_name(self,new_name="hhhhh测试哈哈哈哈哈哈哈enenenne13543646243432!@$$"):
         #hover到会议标题上
-        file_item = wait.until(EC.presence_of_element_located(
+        file_item = self.wait.wait_for_element_clickable(
             (By.XPATH, '//*[@id="app"]/section/main/section/main/div[2]/div/div/div/div[2]'
-                       '/div[1]/div[1]/div[3]/table/tbody/tr[2]/td[2]/div/div/div')))
+                       '/div[1]/div[1]/div[3]/table/tbody/tr[2]/td[2]/div/div/div'))
         ActionChains(self.driver).move_to_element(file_item).perform()
         #等待编辑图标出现
-        edit_btn = wait.until(EC.element_to_be_clickable(
+        edit_btn = self.wait.wait_for_element_clickable(
             (By.XPATH, '//*[@id="app"]/section/main/section/main/div[2]/div/div/div/div[2]'
-                       '/div[1]/div[1]/div[3]/table/tbody/tr[2]/td[2]/div/div/div/div[1]/span[1]/span[2]')))
+                       '/div[1]/div[1]/div[3]/table/tbody/tr[2]/td[2]/div/div/div/div[1]/span[1]/span[2]'))
         edit_btn.click()
         #删除原本的会议名称
         file_input = self.driver.find_element(By.XPATH,'//*[@id="app"]/section/main/section/main/div[2]/div/div/div/div[2]/div[1]/div[1]'
@@ -91,14 +103,13 @@ class TranscriptionRecordPage:
                                           '/div[3]/table/tbody/tr[2]/td[2]/div/div'
                                           '/div/div[1]/span[1]/div[2]/img[2]').click()
         #重新点击编辑
-        file_item = wait.until(EC.presence_of_element_located(
-            (By.XPATH, '//*[@id="app"]/section/main/section/main/div[2]/div/div/div/div[2]'
-                       '/div[1]/div[1]/div[3]/table/tbody/tr[2]/td[2]/div/div/div')))
+        file_item = self.wait.wait_for_element_clickable((By.XPATH, '//*[@id="app"]/section/main/section/main/div[2]/div/div/div/div[2]'
+                       '/div[1]/div[1]/div[3]/table/tbody/tr[2]/td[2]/div/div/div'))
         ActionChains(self.driver).move_to_element(file_item).perform()
         # 等待编辑图标出现
-        edit_btn = wait.until(EC.element_to_be_clickable(
+        edit_btn = self.wait.wait_for_element_clickable(
             (By.XPATH, '//*[@id="app"]/section/main/section/main/div[2]/div/div/div/div[2]'
-                       '/div[1]/div[1]/div[3]/table/tbody/tr[2]/td[2]/div/div/div/div[1]/span[1]/span[2]')))
+                       '/div[1]/div[1]/div[3]/table/tbody/tr[2]/td[2]/div/div/div/div[1]/span[1]/span[2]'))
         edit_btn.click()
         # 删除原本的会议名称
         file_input = self.driver.find_element(By.XPATH,
@@ -118,10 +129,9 @@ class TranscriptionRecordPage:
         #todo 复制链接，新打开一个浏览器窗口，粘贴
         self.driver.find_element(By.XPATH,'//*[@id="app"]/section/main/section/main/div[2]/div/div/div'
                                           '/div[2]/div[1]/div[2]/div/div/div[2]/div[8]/button').click()
-        time.sleep(2)
+        time.sleep(4)
         #关闭分享窗口
-        self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div'
-                                          '/div[2]/div[1]/div[1]/div[3]/table/tbody/tr[2]/td[3]/div/i[1]').click()
+        self.driver.find_element(By.XPATH,'//*[@id="app"]/section/main/section/main/div[2]/div/div/div/div[2]/div[1]/div[2]/div/div/div[1]/button').click()
         #2.进入会议记录详情分享
         self.driver.find_element(By.XPATH,'//*[@id="app"]/section/main/section/main/div[2]/div/div/div/div[2]/div[1]/div[1]'
                                           '/div[3]/table/tbody/tr[2]/td[2]/div/div/div/div[1]/span[1]/span[1]').click()
@@ -148,21 +158,29 @@ class TranscriptionRecordPage:
         #点击下载
         self.driver.find_element(By.XPATH,'//*[@id="app"]/section/main/section'
                                           '/main/div[2]/div/div/div[1]/div[3]/span/span/span/span').click()
+        time.sleep(2)
         #下载ai摘要
-        self.driver.find_element(By.XPATH,'/html/body/div[1]/div[1]/div[2]').click()
+        if self.wait.wait_for_element_visible((By.XPATH,'/html/body/div[1]/div[1]/div[2]')):
+            self.driver.find_element(By.XPATH,'/html/body/div[1]/div[1]/div[2]').click()
+        time.sleep(10)
         #hover到更多
-        file_item = self.driver.find_element(By.XPATH,'/html/body/div[1]/div[1]/div[3]')
-        ActionChains(self.driver).move_to_element(file_item).perform()
-        #下载转写记录
-        self.driver.find_element(By.XPATH,'/html/body/div[1]/div[1]/div[1]').click()
-        #下载音频
-        audio_download_btn = self.wait.wait_for_element_clickable(
-            (By.XPATH, '/html/body/div[1]/div[1]/div[3]/div/div[1]'))
-        audio_download_btn.click()
+        if self.wait.wait_for_element_visible(By.XPATH,'/html/body/div[1]/div[1]/div[3]'):
+            file_item = self.driver.find_element(By.XPATH,'/html/body/div[1]/div[1]/div[3]')
+            time.sleep(2)
+            ActionChains(self.driver).move_to_element(file_item).perform()
+            if self.wait.wait_for_element_visible((By.XPATH,'/html/body/div[1]/div[1]/div[1]')):
+                #下载转写记录
+                self.driver.find_element(By.XPATH,'/html/body/div[1]/div[1]/div[1]').click()
+                time.sleep(2)
+            #下载音频
+            audio_download_btn = self.wait.wait_for_element_clickable(
+                (By.XPATH, '/html/body/div[1]/div[1]/div[3]/div/div[1]'))
+            audio_download_btn.click()
         #下载翻译
-        translate_download_btn = self.wait.wait_for_element_clickable(
-            (By.XPATH, '/html/body/div[1]/div[1]/div[3]/div/div[4]'))
-        translate_download_btn.click()
+        # translate_download_btn = self.wait.wait_for_element_clickable(
+        #     (By.XPATH, '/html/body/div[1]/div[1]/div[3]/div/div[4]'))
+        # time.sleep(2)
+        # translate_download_btn.click()
 
 
     #删除会议记录（单个和批量删除），删除确认弹窗取消再确定
@@ -172,33 +190,40 @@ class TranscriptionRecordPage:
                                           '/div[2]/div/div/div/div[2]/div[1]/div[1]/div[3]'
                                           '/table/tbody/tr[2]/td[3]/div/i[2]').click()
         #弹窗点击取消
-        self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div[3]/button[1]').click()
-        #再次点击删除
-        self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
-                                           '/div[2]/div/div/div/div[2]/div[1]/div[1]/div[3]'
-                                           '/table/tbody/tr[2]/td[3]/div/i[2]').click()
+        # self.driver.find_element(By.CLASS_NAME,'el-button el-button--default el-button--small').click()
+        # time.sleep(2)
+        # #再次点击删除
+        # self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
+        #                                    '/div[2]/div/div/div/div[2]/div[1]/div[1]/div[3]'
+        #                                    '/table/tbody/tr[2]/td[3]/div/i[2]').click()
+        time.sleep(2)
         #点击确认删除
-        self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div[3]/button[2]').click()
+        self.driver.find_element(By.XPATH,'/html/body/div[1]/div/div[3]/button[2]').click()
 
 
     #批量删除会议记录,未勾选不可点击，复选框点击再取消
     def delete_transcription_record_batch(self):
+        time.sleep(2)
         #勾选复选框
         self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/div[2]/div[1]/div[1]/div[3]/table/tbody/tr[1]/td[1]/div/label/span/span').click()
         self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/div[2]/div[1]/div[1]/div[3]/table/tbody/tr[2]/td[1]/div/label/span/span').click()
         time.sleep(2)
         #点击批量删除
-        self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/div[1]/span/button/span').click()
-        #点击取消
-        self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div[3]/button[1]').click()
-        #再次点击批量删除
-        self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/div[1]/span/button/span').click()
+        self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/div[1]/span/button').click()
+        # time.sleep(2)
+        # #点击取消
+        # self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div[3]/button[1]').click()
+        # time.sleep(2)
+        # #再次点击批量删除
+        # self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/div[1]/span/button').click()
+        time.sleep(2)
         #点击确认删除
-        self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div[3]/button[2]/span').click()
+        self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div[3]/button[2]').click()
 
     #点击语篇规整
     def click_speech_regulation(self):
-        self.wait.wait_for_element_clickable((By.XPATH,'/html/body/section/section/main/section/main'
+        time.sleep(2)
+        self.wait.wait_for_element_visible((By.XPATH,'/html/body/section/section/main/section/main'
                                           '/div[2]/div/div/div[2]/div[1]/div[1]/span[2]'
                                           '/div/div/span'))
         self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main'
@@ -207,61 +232,70 @@ class TranscriptionRecordPage:
 
     #点击一键纪要
     def click_one_key_summary(self):
-        self.wait.wait_for_element_clickable((By.XPATH,'/html/body/section/section/main'
+        if self.wait.wait_for_element_visible((By.XPATH,'/html/body/section/section/main'
                                                        '/section/main/div[2]/div/div/div[2]'
-                                                       '/div[1]/div[1]/span[3]/div/div'))
-        self.driver.find_element(By.XPATH,'/html/body/section/section/main'
-                                           '/section/main/div[2]/div/div/div[2]'
-                                           '/div[1]/div[1]/span[3]/div/div').click()
-        #弹窗点击确认
-        #判断确认是否存在
-        if self.driver.find_element(By.XPATH,'/html/body/div[7]/div/div[3]/button[2]'):
-            self.driver.find_element(By.XPATH,'/html/body/div[7]/div/div[3]/button[2]').click()
+                                                       '/div[1]/div[1]/span[3]/div/div')):
+            self.driver.find_element(By.XPATH,'/html/body/section/section/main'
+                                               '/section/main/div[2]/div/div/div[2]'
+                                               '/div[1]/div[1]/span[3]/div/div').click()
+            time.sleep(2)
+            #弹窗点击确认
+            #判断确认是否存在
+            if self.wait.wait_for_element_visible((By.XPATH,'/html/body/div[7]/div/div[3]/button[2]')):
+                self.driver.find_element(By.XPATH,'/html/body/div[7]/div/div[3]/button[2]').click()
 
     #点击区分发言人
     def click_distinguish_speaker(self):
-        self.wait.wait_for_element_clickable((By.XPATH,'/html/body/section/section/main/section/main'
+        if self.wait.wait_for_element_visible((By.XPATH,'/html/body/section/section/main/section/main'
                                                        '/div[2]/div/div/div[2]/div[1]/div[1]/span[1]'
-                                                       '/span/div/div/div/span'))
-        self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main'
+                                                       '/span/div/div/div/span')):
+            self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main'
                                                        '/div[2]/div/div/div[2]/div[1]/div[1]/span[1]'
                                                        '/span/div/div/div/span').click()
+            time.sleep(2)
 
     #点击翻译
     def click_translation(self):
-        self.wait.wait_for_element_clickable((By.XPATH,'/html/body/section/section/main'
+        if self.wait.wait_for_element_visible((By.XPATH,'/html/body/section/section/main'
                                                        '/section/main/div[2]/div/div/div[2]'
                                                        '/div[1]/div[1]/span[1]/span/div'
-                                                       '/div/div/span'))
-        self.driver.find_element(By.XPATH,'/html/body/section/section/main'
-                                                       '/section/main/div[2]/div/div/div[2]'
-                                                       '/div[1]/div[1]/span[1]/span/div'
-                                                       '/div/div/span').click()
-        #弹窗点击翻译
-        self.driver.find_element(By.XPATH,'/html/body/section/section/main/section'
-                                          '/main/div[2]/div/div/div[1]/div[4]/div/div'
-                                          '/div[3]/span/button[2]').click()
+                                                       '/div/div/span')):
+            self.driver.find_element(By.XPATH,'//*[@id="app"]/section/main/section/main/div[2]/div/div/div[2]/div[1]/div[1]/div[2]/div[2]').click()
+            time.sleep(2)
+            #弹窗点击翻译
+            self.driver.find_element(By.XPATH,'/html/body/section/section/main/section'
+                                              '/main/div[2]/div/div/div[1]/div[4]/div/div'
+                                              '/div[3]/span/button[2]').click()
 
 
     #查找转写内容
     def find_transcription_content(self, content="的"):
-        time.sleep(5)
+        time.sleep(2)
         #点击查找
-        self.driver.find_element(By.CLASS_NAME,'el-tooltip icon tool-button item').click()
-        #输入查找内容
-        search_input = self.driver.find_element(By.XPATH,'/html/body/div[3]/div/input')
-        search_input.send_keys(content)
-        #关闭查找
-        self.driver.find_element(By.CLASS_NAME,'iconfont icon-ico_find_gb').click()
+        if self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]'
+                                          '/div/div/div[2]/div[1]/div[1]/div[3]/div[2]'):
+            self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main/div[2]'
+                                               '/div/div/div[2]/div[1]/div[1]/div[3]/div[2]').click()
+            time.sleep(4)
+            #输入查找内容
+            search_input = self.driver.find_element(By.XPATH,'/html/body/div[2]/div/input')
+            time.sleep(2)
+            search_input.send_keys(content)
+            time.sleep(2)
+            #关闭查找
+            self.driver.find_element(By.CLASS_NAME,'iconfont icon-ico_find_gb').click()
+        else:
+            return
 
 
     #点击发言总结
     def click_speech_summary(self):
-        self.wait.wait_for_element_clickable((By.XPATH,'/html/body/section/section/main'
+        if self.wait.wait_for_element_visible((By.XPATH,'/html/body/section/section/main'
                                                        '/section/main/div[2]/div/div/div[3]'
                                                        '/div[2]/div/div[1]/div/div[2]/div/div'
-                                                       '/div[2]/div/div[2]/ul/li'))
-        self.driver.find_element(By.XPATH,'/html/body/section/section/main'
+                                                       '/div[2]/div/div[2]/ul/li')):
+            self.driver.find_element(By.XPATH,'/html/body/section/section/main'
                                                        '/section/main/div[2]/div/div/div[3]'
                                                        '/div[2]/div/div[1]/div/div[2]/div/div'
                                                        '/div[2]/div/div[2]/ul/li').click()
+            time.sleep(2)

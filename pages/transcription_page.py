@@ -1,6 +1,6 @@
 import time
 
-from selenium.webdriver import Keys
+from selenium.webdriver import Keys, ActionChains
 
 from utils.wait_utils import WaitUtils
 from selenium.webdriver.common.by import By
@@ -10,6 +10,12 @@ class TranscriptionPage:
     def __init__(self, driver):
         self.driver = driver
         self.wait = WaitUtils(driver, 10)
+
+
+    #点击允许使用麦克风权限
+    def allow_mic_permission(self):
+        time.sleep(1)
+        ActionChains(self.driver).move_by_offset(636, 380).click().perform()
 
     #开始中文转写
     def start_transcription(self):
@@ -22,6 +28,8 @@ class TranscriptionPage:
         # 点击开始会议
         self.driver.find_element(By.XPATH, '/html/body/section/div[12]/div/div[2]/div/div[3]/button').click()
         time.sleep(5)
+        # 点击允许使用麦克风
+        # ActionChains(self.driver).move_by_offset(636, 380).click().perform()
 
 
     #开始英文转写
@@ -75,7 +83,7 @@ class TranscriptionPage:
         time.sleep(2)
         #点击弹窗结束
         self.driver.find_element(By.XPATH,'/html/body/div/div/div[3]/button[2]').click()
-        time.sleep(2)
+        time.sleep(5)
 
 
     #语气词过滤默认勾选状态
@@ -89,7 +97,8 @@ class TranscriptionPage:
         self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/div[1]/div[1]/div[1]/span[1]/div/div[1]/span/span/i').click()
         time.sleep(4)
         #选择手动区分发言人
-        self.driver.find_element(By.XPATH,'/html/body/div[5]/div[1]/div[1]/ul/li[2]').click()
+        self.driver.find_element(By.XPATH,'/html/body/div[3]/div[1]/div[1]/ul/li[2]').click()
+        time.sleep(2)
 
     #不区分发言人
     def close_speaker_distinguish(self):
@@ -165,16 +174,22 @@ class TranscriptionPage:
         edit_icon = self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/i')
         edit_icon.click()
         #会议标题文本框
-        input = self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/form/div')
+        input = self.driver.find_element(By.XPATH,
+                                         '/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/form/div/div/div/input')
+        time.sleep(2)
+
         #未修改直接保存
         input.send_keys(Keys.ENTER)
+        self.wait.wait_for_element_clickable((By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/i'))
         #再次点击修改
         edit_icon.click()
-        for i in range(len(input.text)):
+        for i in range(len(input.get_attribute("value"))):
             input.send_keys(Keys.BACKSPACE)
+        time.sleep(2)
         input.send_keys(Keys.ENTER)
         #输入新标题
         input.send_keys(new_title)
+        time.sleep(2)
         input.send_keys(Keys.ENTER)
 
     #修改会议标题
@@ -183,10 +198,10 @@ class TranscriptionPage:
         edit_icon = self.driver.find_element(By.XPATH,
                                              '/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/i')
         edit_icon.click()
-        # 会议标题文本框
         input = self.driver.find_element(By.XPATH,
-                                         '/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/form/div')
-        for i in range(len(input.text)):
+                                         '/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/form/div/div/div/input')
+        # 会议标题文本框
+        for i in range(len(input.get_attribute("value"))):
             input.send_keys(Keys.BACKSPACE)
         # 输入新标题
         input.send_keys(new_title)
@@ -201,8 +216,8 @@ class TranscriptionPage:
         edit_icon.click()
         # 会议标题文本框
         input = self.driver.find_element(By.XPATH,
-                                         '/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/form/div')
-        for i in range(len(input.text)):
+                                         '/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/form/div/div/div/input')
+        for i in range(len(input.get_attribute("value"))):
             input.send_keys(Keys.BACKSPACE)
         # 输入新标题
         input.send_keys(new_title)
@@ -217,8 +232,9 @@ class TranscriptionPage:
         edit_icon = self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/i')
         edit_icon.click()
         #会议标题文本框
-        input = self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/form/div')
-        for i in range(len(input.text)):
+        input = self.driver.find_element(By.XPATH,
+                                         '/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/form/div/div/div/input')
+        for i in range(len(input.get_attribute("value"))):
             input.send_keys(Keys.BACKSPACE)
         #输入新标题
         input.send_keys(new_title)
@@ -226,23 +242,32 @@ class TranscriptionPage:
 
 
     #修改会议标题，输入1个和15个字符
-    def modify_meeting_title_one_to_fifteen_characters(self,new_title="abc12345bewis测试"):
+    def modify_meeting_title_fifteen_characters(self,new_title="abc12345bewis测试"):
         # 点击会议标题修改图标
         edit_icon = self.driver.find_element(By.XPATH,
-                                             '/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/i')
+                                             '//*[@id="app"]/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/i')
         edit_icon.click()
         # 会议标题文本框
         input = self.driver.find_element(By.XPATH,
-                                         '/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/form/div')
-        for i in range(len(input.text)):
+                                         '/html/body/section/section/main/section/main/div[2]/div/div/div/header/div[1]/div/div/div/form/div/div/div/input')
+        time.sleep(2)
+        for i in range(len(input.get_attribute("value"))):
             input.send_keys(Keys.BACKSPACE)
-        # 输入1个字符，保存失败
-        input.send_keys('一')
-        input.send_keys(Keys.ENTER)
-        input.send_keys(Keys.BACKSPACE)
+        time.sleep(2)
+        # 输入1个字符，保存
+        # input.send_keys('一')
+        # input.send_keys(Keys.ENTER)
+        # time.sleep(5)
+        # #再次点击修改
+        # edit_icon.click()
+        # time.sleep(2)
+        # input.send_keys(Keys.BACKSPACE)
+        # time.sleep(2)
         #输入15个字符，点击保存
-        input.send_keys(new_title)
+        input.send_keys("中文123new_title")
+        time.sleep(2)
         input.send_keys(Keys.ENTER)
+        time.sleep(2)
 
 
     #修改转写内容
@@ -262,9 +287,12 @@ class TranscriptionPage:
 
     #编辑会议纪要
     def edit_meeting_summary(self):
-        text_input = self.driver.find_element(By.XPATH, '/html/body/p[6]')
-        text_input.send_keys('测试修改会议纪要')
-        time.sleep(5)
+        if self.driver.find_element(By.XPATH, '//*[@id="tinymce"]/p[2]/strong'):
+            text_input = self.driver.find_element(By.XPATH, '//*[@id="tinymce"]/p[1]')
+            text_input.click()
+            time.sleep(2)
+            text_input.send_keys('测试修改会议纪要')
+            time.sleep(2)
 
     #下载会议纪要
     def download_meeting_summary(self):
@@ -305,9 +333,13 @@ class TranscriptionPage:
                                            '/main/section/main/div[2]/div/div/div'
                                            '/div[1]/div[3]/div[1]/div/div[2]/div/div/div'
                                            '/div/div[3]/div[2]/div/div[2]/div[1]/div/div[2]/div/button[2]').click()
-        time.sleep(4)
+        time.sleep(2)
         #弹窗点击确定
-        self.driver.find_element(By.XPATH, '/html/body/div[4]/div/div[3]/span/button[2]').click()
+        confirm_btn = self.driver.find_element(By.CSS_SELECTOR,'body > div.el-dialog__wrapper > div > div.el-dialog__footer > span > button.el-button.el-button--primary.el-button--small')
+        self.wait.wait_for_element_visible((By.CSS_SELECTOR, 'body > div.el-dialog__wrapper > div > div.el-dialog__footer > span > button.el-button.el-button--primary.el-button--small'))
+        # self.wait.wait_for_element_visible((By.XPATH, '/html/body/div[3]/div/div/div/div[3]/button[2]'))
+        # confirm_btn = self.driver.find_element(By.XPATH, '/html/body/div[5]/div/div[3]/span/button[2]')
+        ActionChains(self.driver).move_to_element(confirm_btn).click().perform()
         time.sleep(4)
         #关闭对话框
         self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'

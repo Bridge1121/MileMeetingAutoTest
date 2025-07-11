@@ -1,6 +1,6 @@
 import time
 
-from selenium.webdriver import Keys
+from selenium.webdriver import Keys, ActionChains
 
 from utils.wait_utils import WaitUtils
 from selenium.webdriver.common.by import By
@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 
 class HotWordPage:
     def __init__(self, driver):
-        self.wait = WaitUtils(driver, 10)
+        self.wait = WaitUtils(driver, 30)
         self.driver = driver
 
 
@@ -61,11 +61,14 @@ class HotWordPage:
         #     self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main/div[2]'
         #                                                   '/div[2]/div/div[2]/div/button/span').click()
         # else:
+        time.sleep(2)
         #点击管理热词
         self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
                                            '/div[2]/div[2]/div/div[1]/button/span').click()
+        time.sleep(2)
         #获取输入框
-        input_box = self.driver.find_element(By.CLASS_NAME, 'el-textarea_inner')
+        input_box = self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main/div[2]/div[2]/div/div[3]'
+                                                       '/div[2]/div/div[2]/div[1]/div/div[1]/textarea')
         # input_box.click()
         input_box.send_keys(search_key)
 
@@ -73,12 +76,22 @@ class HotWordPage:
 
     #热词点击保存
     def hot_word_save(self):
-        # 点击保存
         self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
                                            '/div[2]/div[2]/div/div[3]/div[2]/div/div[2]'
                                            '/div[1]/div/div[2]/div/button[2]').click()
-        # 点击确定
-        self.driver.find_element(By.XPATH, '/html/body/div[4]/div/div[3]/span/button[2]').click()
+        time.sleep(2)
+        self.wait.wait_for_element_visible((By.CSS_SELECTOR,
+                                            'body > div.el-dialog__wrapper > div > div.el-dialog__footer > span > button.el-button.el-button--primary.el-button--small'))
+        # 弹窗点击确定
+        confirm_btn = self.driver.find_element(By.CSS_SELECTOR,
+                                               'body > div.el-dialog__wrapper > div > div.el-dialog__footer > span > button.el-button.el-button--primary.el-button--small')
+        ActionChains(self.driver).move_to_element(confirm_btn).click().perform()
+        # 点击保存
+
+        # # 点击确定
+        # self.wait.wait_for_element_clickable((By.XPATH, '/html/body/div[2]/div/div[3]/span/button[2]'))
+        # # self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[3]/span/button[2]').click()
+        # self.driver.execute_script("document.querySelector('.el-button.el-button--primary.el-button--small').click();")
 
 
     #热词点击取消
@@ -87,13 +100,24 @@ class HotWordPage:
         self.driver.find_element(By.XPATH, '/html/body/section/section/main'
                                            '/section/main/div[2]/div[2]/div/div[3]/div[2]/div/div[2]'
                                            '/div[1]/div/div[2]/div/button[1]/span').click()
-        #弹窗点击确定离开
-        self.driver.find_element(By.XPATH, '/html/body/div[3]/div/div[3]/span/button[2]').click()
+        # 弹窗点击确定
+        confirm_btn = self.driver.find_element(By.CSS_SELECTOR,
+                                               'body > div:nth-child(7) > div > div.el-dialog__footer > span > button.el-button.el-button--primary.el-button--small')
+        self.wait.wait_for_element_visible((By.CSS_SELECTOR,
+                                            'body > div:nth-child(7) > div > div.el-dialog__footer > span > button.el-button.el-button--primary.el-button--small'))
+        ActionChains(self.driver).move_to_element(confirm_btn).click().perform()
+
+
+        # time.sleep(2)
+        # #弹窗点击确定离开
+        # self.wait.wait_for_element_clickable((By.XPATH, '/html/body/div[2]/div/div[3]/span/button[2]'))
+        # self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[3]/span/button[2]').click()
+        # self.driver.find_element(By.XPATH, '/html/body/div[3]/div/div[3]/span/button[2]').click()
 
     #删除全部热词
     def delete_hot_word(self):
         #判断是否有热词
-        if self.wait.wait_for_element_clickable((By.XPATH, '/html/body/section/section/main/section/main/div[2]'
+        if self.wait.wait_for_element_visible((By.XPATH, '/html/body/section/section/main/section/main/div[2]'
                                                           '/div[2]/div/div[2]/div/button/span')):
              return
         else:
@@ -124,7 +148,7 @@ class HotWordPage:
 
     #点击下一个
     def click_next(self):
-        self.wait.wait_for_element_clickable((By.XPATH, '/html/body/section/section/main/section'
+        self.wait.wait_for_element_visible((By.XPATH, '/html/body/section/section/main/section'
                                                        '/main/div[2]/div[2]/div/div[1]/div/button[1]'))
         self.driver.find_element(By.XPATH, '/html/body/section/section/main/section'
                                                        '/main/div[2]/div[2]/div/div[1]/div/button[2]').click()

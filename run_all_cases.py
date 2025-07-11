@@ -20,15 +20,15 @@ DINGTALK_WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=93c04271a1
 
 
 #执行生成测试报告的命令
-# allure generate allure-results -o allure-allure-report --clean
-# allure open allure-allure-report
+# allure generate allure-results -o allure-allure-report-86% --clean
+# allure open allure-allure-report-86%
 
 
 TASK_NAME = "麦耳会记UI自动化测试"
 TEAM_NAME = "测试小组"
 PROJECT_NAME = "麦耳会记自动化测试项目"
 DEVICE_MODEL = "麦耳会记"
-APK_VERSION = "V4.1.0.1"
+URL = "V4.1.0.1"
 
 def send_to_dingtalk(webhook_url, message):
     headers = {'Content-Type': 'application/json'}
@@ -78,9 +78,9 @@ def run_all_scripts():
 
     #测试环境信息和参数信息
     write_environment_properties({
-        "project": "Bangongben Auto Test",
-        "apk_version": APK_VERSION,
-        "device_model": "Bangongben Pro",
+        "project": "MilMeeting Web AutoTest",
+        "url": URL,
+        "device_model": "MileMeeting",
         "tester": "twx",
     })
     # write_environment_properties({
@@ -101,12 +101,12 @@ def run_all_scripts():
     subprocess.run(["pytest", "testcases", "--alluredir=allure-results"], encoding="utf-8")
 
     # 生成 HTML 报告
-    # subprocess.run(["allure", "generate", "./allure-results", "-o", "./allure-allure-report", "--clean"])
-    # subprocess.run(["pytest", "--allure-results", "--allure-allure-report", "--clean-allure-results"])
+    # subprocess.run(["allure", "generate", "./allure-results", "-o", "./allure-allure-report-86%", "--clean"])
+    # subprocess.run(["pytest", "--allure-results", "--allure-allure-report-86%", "--clean-allure-results"])
 
     # 打开 HTML 报告
-    # subprocess.run(["allure", "open", "./allure-allure-report"])
-    # subprocess.run(["allure", "serve", "./allure-allure-report"])
+    # subprocess.run(["allure", "open", "./allure-allure-report-86%"])
+    # subprocess.run(["allure", "serve", "./allure-allure-report-86%"])
 
     success, failure, error = count_allure_results()
     duration = time.time() - start_time
@@ -118,7 +118,7 @@ def run_all_scripts():
     msg += f"所在团队: {TEAM_NAME}\n"
     msg += f"所在项目: {PROJECT_NAME}\n"
     msg += f"设备型号: {DEVICE_MODEL}\n"
-    msg += f"系统版本: {APK_VERSION}\n\n"
+    msg += f"网址: {URL}\n\n"
     msg += f"执行结果:\n"
     msg += f"总测试数: {success + failure + error}\n"
     msg += f"通过: {success}\n失败: {failure}\n错误: {error}\n"

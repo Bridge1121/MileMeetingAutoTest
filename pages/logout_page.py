@@ -30,6 +30,7 @@ class LogoutPage:
 
     #开始实时转写，然后退出登录
     def logout_transcription(self):
+        self.wait.wait_for_element_visible((By.XPATH, '/html/body/section/section/main/section/main/div[2]/div/div/div[1]/div[2]/div[1]/div/div/div[1]'))
         #开始实时转写
         self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main/div[2]/div/div/div[1]/div[2]/div[1]/div/div/div[1]').click()
         #点击开始会议

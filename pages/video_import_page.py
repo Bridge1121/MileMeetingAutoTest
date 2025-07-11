@@ -70,8 +70,8 @@ class VideoImportPage:
     def upload_video_chinese(self,video_path=UPLOAD_CH_FILE_PATH):
         if video_path!=None:
             #点击导入音频
-            self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div'
-                                              '/div/div[1]/div[2]/div[2]/div/div/div[1]').click()
+            # self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div'
+            #                                   '/div/div[1]/div[2]/div[2]/div/div/div[1]').click()
             #点击选择音频文件
             # choose_btn = self.driver.find_element_by_xpath('/html/body/section/section/main/section/main/div[2]/article/div/div[1]/div/div/div[1]/text()')
             # choose_btn.click()
@@ -115,19 +115,19 @@ class VideoImportPage:
                 self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main/div[2]/div/div/div/div[2]'
                                                   '/div[1]/div[1]/div[3]/table/tbody/tr[1]/td[2]/div/div/div/div[1]/span[1]/span[1]').click()
                 #查看会议纪要
-                self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div[3]/div[2]'
-                                                  '/div/div[1]/div/div[1]/div/div/div/div[3]/span').click()
+                # self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div[3]/div[2]'
+                #                                   '/div/div[1]/div/div[1]/div/div/div/div[3]/span').click()
                 #返回列表页
-                self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]'
-                                                  '/div/div/div[1]/div[1]/a/i').click()
+                # self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]'
+                #                                   '/div/div/div[1]/div[1]/a/i').click()
             time.sleep(2)
 
     #上传英文音频
     def upload_video_english(self,video_path=UPLOAD_EH_FILE_PATH):
         if video_path!=None:
             #点击导入音频
-            self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]'
-                                              '/div/div/div[1]/div[2]/div[2]/div/div/div[1]').click()
+            # self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]'
+            #                                   '/div/div/div[1]/div[2]/div[2]/div/div/div[1]').click()
             #选择英文
             self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]'
                                               '/article/div/div[1]/div/div/div[2]/div/div[2]/div[1]'
@@ -175,9 +175,10 @@ class VideoImportPage:
     #上传粤语音频
     def upload_video_yuewen(self,video_path=UPLOAD_YY_FILE_PATH):
         if video_path!=None:
+            time.sleep(2)
             #点击导入音频
-            self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]'
-                                              '/div/div/div[1]/div[2]/div[2]/div/div/div[1]').click()
+            # self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]'
+            #                                   '/div/div/div[1]/div[2]/div[2]/div/div/div[1]').click()
             #选择粤语
             self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]'
                                               '/article/div/div[1]/div/div/div[2]/div/div[2]/div[1]'
@@ -225,9 +226,9 @@ class VideoImportPage:
     def upload_video_sichuan(self, video_path=UPLOAD_SC_FILE_PATH):
         if video_path != None:
             # 点击导入音频
-            self.driver.find_element(By.XPATH,
-                                     '/html/body/section/section/main/section/main/div[2]/div/div'
-                                     '/div[1]/div[2]/div[2]/div/div/div[1]').click()
+            # self.driver.find_element(By.XPATH,
+            #                          '/html/body/section/section/main/section/main/div[2]/div/div'
+            #                          '/div[1]/div[2]/div[2]/div/div/div[1]').click()
             #点击选择四川话
             self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
                                                '/div[2]/article/div/div[1]/div/div/div[2]/div/div[2]'

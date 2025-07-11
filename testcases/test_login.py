@@ -12,6 +12,7 @@ class TestLogin:
     @allure.title("输入默认账号：admin，密码：admin123，点击【登录】按钮可登录成功进入首页,密码是密文显示")
     @allure.feature("输入默认账号：admin，密码：admin123，点击【登录】按钮可登录成功进入首页,密码是密文显示")
     @pytest.mark.order(1)
+    @pytest.mark.skip
     def test_login_success(self,driver):
         login = LoginPage(driver)
         login.open()

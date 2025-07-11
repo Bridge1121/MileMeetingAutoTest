@@ -15,9 +15,9 @@ class TestSensitiveWords:
     @pytest.mark.order(1)
     def test_add_sensitive_words_chinese(self, driver):
         # 单独运行时添加
-        login = LoginPage(driver)
-        login.open()
-        login.login()
+        # login = LoginPage(driver)
+        # login.open()
+        # login.login()
         home = HomePage(driver)
         home.back_home()
         sensitive_words_page = SensitiveWordsPage(driver)

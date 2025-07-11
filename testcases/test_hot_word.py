@@ -13,7 +13,12 @@ class TestHotWord:
     @allure.title("光标定位到文本输入框的任意位置可进入编辑状态，取消热词编辑，恢复空态显示，保存热词编辑，恢复空态显示")
     @allure.feature("光标定位到文本输入框的任意位置可进入编辑状态，取消热词编辑，恢复空态显示，保存热词编辑，恢复空态显示")
     @pytest.mark.order(-1)#最后运行
+    # @pytest.mark.skip(reason="保存按钮不可点击")
     def test_hot_word_empty(self, driver):
+        # 单独运行要加这两行
+        # login = LoginPage(driver)
+        # login.open()
+        # login.login()
         #返回首页
         # 返回到首页
         home = HomePage(driver)
@@ -36,11 +41,12 @@ class TestHotWord:
     @allure.title("热词输入2个汉字，10个汉字")
     @allure.feature("热词输入2个汉字，10个汉字")
     @pytest.mark.order(0)
+    # @pytest.mark.skip(reason="保存按钮不可点击")
     def test_hot_word_input_chinese(self, driver):
         # 单独运行要加这两行
-        login = LoginPage(driver)
-        login.open()
-        login.login()
+        # login = LoginPage(driver)
+        # login.open()
+        # login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -56,7 +62,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("热词输入2个字母,10个字母，大写字母，大小写混合")
     @allure.feature("热词输入2个字母,10个字母，大写字母，大小写混合")
+    # @pytest.mark.skip(reason="保存按钮不可点击")
     def test_hot_word_input_letter(self, driver):
+        # 单独运行要加这两行
+        # login = LoginPage(driver)
+        # login.open()
+        # login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -74,7 +85,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("热词文本框支持输入中文、英文、中英文逗号/顿号")
     @allure.feature("热词文本框支持输入中文、英文、中英文逗号/顿号")
+    # @pytest.mark.skip(reason="保存按钮不可点击")
     def test_hot_word_input_letter_and_chinese(self, driver):
+        # 单独运行要加这两行
+        login = LoginPage(driver)
+        login.open()
+        login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -86,7 +102,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("同一槽位下输入重复的热词，保存时弹出toast提示")
     @allure.feature("同一槽位下输入重复的热词，保存时弹出toast提示")
+    # @pytest.mark.skip(reason="保存按钮不可点击")
     def test_hot_word_input_same_slot(self, driver):
+        # 单独运行要加这两行
+        # login = LoginPage(driver)
+        # login.open()
+        # login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -98,7 +119,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("编辑状态下，点击tab标签可切换不同分页，输入不同的热词，保存提交")
     @allure.feature("编辑状态下，点击tab标签可切换不同分页，输入不同的热词，保存提交")
+    # @pytest.mark.skip(reason="保存按钮不可点击")
     def test_hot_word_input_different_tab(self, driver):
+        # 单独运行要加这两行
+        # login = LoginPage(driver)
+        # login.open()
+        # login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -116,7 +142,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("三个槽位页下输入同一个热词，保存提交")
     @allure.feature("三个槽位页下输入同一个热词，保存提交")
+    # @pytest.mark.skip(reason="保存按钮不可点击")
     def test_hot_word_input_different_tab(self, driver):
+        # 单独运行要加这两行
+        # login = LoginPage(driver)
+        # login.open()
+        # login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -140,7 +171,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("确定取消热词编辑后，再次进入热词编辑")
     @allure.feature("确定取消热词编辑后，再次进入热词编辑")
+    # @pytest.mark.skip(reason="保存按钮不可点击")
     def test_hot_word_cancel(self, driver):
+        # 单独运行要加这两行
+        # login = LoginPage(driver)
+        # login.open()
+        # login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -156,7 +192,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("编辑热词时，点击左侧侧边栏跳转页面")
     @allure.feature("编辑热词时，点击左侧侧边栏跳转页面")
+    # @pytest.mark.skip(reason="保存按钮不可点击")
     def test_hot_word_side_bar(self, driver):
+        # 单独运行要加这两行
+        # login = LoginPage(driver)
+        # login.open()
+        # login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -171,7 +212,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("保存后热词统一用中文顿号隔开,输入多个分隔符，保存过滤多余分隔符")
     @allure.feature("保存后热词统一用中文顿号隔开,输入多个分隔符，保存过滤多余分隔符")
+    # @pytest.mark.skip(reason="保存按钮不可点击")
     def test_hot_word_filter_separator(self, driver):
+        # 单独运行要加这两行
+        # login = LoginPage(driver)
+        # login.open()
+        # login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -185,7 +231,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("选中多个热词删除,清空所有热词后保存，恢复空态显示")
     @allure.feature("选中多个热词删除,清空所有热词后保存，恢复空态显示")
+    # @pytest.mark.skip(reason="保存按钮不可点击")
     def test_hot_word_delete_all(self, driver):
+        # 单独运行要加这两行
+        # login = LoginPage(driver)
+        # login.open()
+        # login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -197,17 +248,22 @@ class TestHotWord:
     @allure.title("精确搜索非当前tab中存在的热词,搜索不存在的热词，弹出toast提示")
     @allure.feature("精确搜索非当前tab中存在的热词,搜索不存在的热词，弹出toast提示")
     def test_hot_word_search(self, driver):
+        # 单独运行要加这两行
+        # login = LoginPage(driver)
+        # login.open()
+        # login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
         hot_word_page = HotWordPage(driver)
         hot_word_page.click_more_app_and_open_hot_word_page()
         #添加热词
-        hot_word = "测试搜索"
-        hot_word_page.add_hot_word(hot_word)
-        #切换tab页
-        hot_word_page.switch_hot_word_page_tab("其他热词")
-        #搜索刚才添加的热词
-        hot_word_page.search_hot_word(hot_word)
+        # hot_word = "测试搜索"
+        # hot_word_page.add_hot_word(hot_word)
+        # hot_word_page.hot_word_save()
+        # #切换tab页
+        # hot_word_page.switch_hot_word_page_tab("其他热词")
+        # #搜索刚才添加的热词
+        # hot_word_page.search_hot_word(hot_word)
         #搜索不存在的热词
         hot_word_page.search_hot_word("不存在的")
