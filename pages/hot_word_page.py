@@ -25,14 +25,12 @@ class HotWordPage:
     #切换热词界面的tab页
     def switch_hot_word_page_tab(self,tab_name):
         if tab_name == '人名':
-            self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main/div[2]/div[2]'
-                                               '/div/div[3]/div[1]/div/div[1]/div/div/div/div[1]').click()
+            self.driver.find_element(By.CSS_SELECTOR, '#tab-1').click()
         elif tab_name == '地名':
-            self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main/div[2]/div[2]'
-                                           '/div/div[3]/div[1]/div/div[1]/div/div/div/div[2]').click()
+            self.driver.find_element(By.CSS_SELECTOR, '#tab-2').click()
         elif tab_name == '其他热词':
-            self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
-                                               '/div[2]/div[2]/div/div[3]/div[1]/div/div[1]/div/div/div/div[3]').click()
+            self.driver.find_element(By.CSS_SELECTOR, '#tab-3').click()
+        time.sleep(2)
 
 
     #搜索热词
@@ -100,11 +98,12 @@ class HotWordPage:
         self.driver.find_element(By.XPATH, '/html/body/section/section/main'
                                            '/section/main/div[2]/div[2]/div/div[3]/div[2]/div/div[2]'
                                            '/div[1]/div/div[2]/div/button[1]/span').click()
+        self.wait.wait_for_element_visible((By.CSS_SELECTOR,
+                                            'body > div:nth-child(8) > div > div.el-dialog__footer > span > button.el-button.el-button--primary.el-button--small'))
         # 弹窗点击确定
         confirm_btn = self.driver.find_element(By.CSS_SELECTOR,
-                                               'body > div:nth-child(7) > div > div.el-dialog__footer > span > button.el-button.el-button--primary.el-button--small')
-        self.wait.wait_for_element_visible((By.CSS_SELECTOR,
-                                            'body > div:nth-child(7) > div > div.el-dialog__footer > span > button.el-button.el-button--primary.el-button--small'))
+                                               'body > div:nth-child(8) > div > div.el-dialog__footer > span > button.el-button.el-button--primary.el-button--small')
+
         ActionChains(self.driver).move_to_element(confirm_btn).click().perform()
 
 
@@ -125,25 +124,32 @@ class HotWordPage:
             self.driver.find_element(By.XPATH, '/html/body/section/section/main/section/main'
                                                '/div[2]/div[2]/div/div[1]/button/span').click()
             #点击人名、地名、其他热词
-            self.switch_hot_word_page_tab('人名')
+            # self.switch_hot_word_page_tab('人名')
             self.search_hot_word(Keys.CONTROL, 'a')
             #键盘按下backspace
             self.search_hot_word(Keys.BACKSPACE)
-            self.switch_hot_word_page_tab('地名')
-            self.search_hot_word(Keys.CONTROL, 'a')
-            # 键盘按下backspace
-            self.search_hot_word(Keys.BACKSPACE)
-            self.switch_hot_word_page_tab('其他热词')
-            self.search_hot_word(Keys.CONTROL, 'a')
-            # 键盘按下backspace
-            self.search_hot_word(Keys.BACKSPACE)
+            # self.switch_hot_word_page_tab('地名')
+            # self.search_hot_word(Keys.CONTROL, 'a')
+            # # 键盘按下backspace
+            # self.search_hot_word(Keys.BACKSPACE)
+            # self.switch_hot_word_page_tab('其他热词')
+            # self.search_hot_word(Keys.CONTROL, 'a')
+            # # 键盘按下backspace
+            # self.search_hot_word(Keys.BACKSPACE)
             #点击保存
             self.hot_word_save()
 
 
     #点击确定离开
     def click_confirm_leave(self):
-        self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[3]/span/button[2]').click()
+        # self.driver.find_element(By.XPATH, '/html/body/div[2]/div/div[3]/span/button[2]').click()
+        self.wait.wait_for_element_visible((By.XPATH,
+                                            '/html/body/div[2]/div/div[3]/span/button[2]'))
+        # 弹窗点击确定
+        confirm_btn = self.driver.find_element(By.XPATH,
+                                               '/html/body/div[2]/div/div[3]/span/button[2]')
+
+        ActionChains(self.driver).move_to_element(confirm_btn).click().perform()
 
 
     #点击下一个

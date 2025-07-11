@@ -97,7 +97,8 @@ class TranscriptionPage:
         self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/div[1]/div[1]/div[1]/span[1]/div/div[1]/span/span/i').click()
         time.sleep(4)
         #选择手动区分发言人
-        self.driver.find_element(By.XPATH,'/html/body/div[3]/div[1]/div[1]/ul/li[2]').click()
+        if self.wait.wait_for_element_visible(By.XPATH,'/html/body/div[3]/div[1]/div[1]/ul/li[2]'):
+            self.driver.find_element(By.XPATH,'/html/body/div[3]/div[1]/div[1]/ul/li[2]').click()
         time.sleep(2)
 
     #不区分发言人
@@ -106,7 +107,8 @@ class TranscriptionPage:
         self.driver.find_element(By.XPATH,'/html/body/section/section/main/section/main/div[2]/div/div/div/div[1]/div[1]/div[1]/span[1]/div/div/span/span/i').click()
         time.sleep(4)
         #选择不区分发言人
-        self.driver.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[1]/ul/li[1]').click()
+        if self.wait.wait_for_element_visible(By.XPATH,'/html/body/div[4]/div[1]/div[1]/ul/li[1]'):
+            self.driver.find_element(By.XPATH,'/html/body/div[4]/div[1]/div[1]/ul/li[1]').click()
 
     #打开声纹区分发言人
     def open_voice_print_speaker_distinguish(self):

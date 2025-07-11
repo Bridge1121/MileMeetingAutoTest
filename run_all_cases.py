@@ -20,8 +20,8 @@ DINGTALK_WEBHOOK = "https://oapi.dingtalk.com/robot/send?access_token=93c04271a1
 
 
 #执行生成测试报告的命令
-# allure generate allure-results -o allure-allure-report-86% --clean
-# allure open allure-allure-report-86%
+# allure generate allure-results -o allure-allure-report --clean
+# allure open allure-allure-report
 
 
 TASK_NAME = "麦耳会记UI自动化测试"
@@ -101,12 +101,12 @@ def run_all_scripts():
     subprocess.run(["pytest", "testcases", "--alluredir=allure-results"], encoding="utf-8")
 
     # 生成 HTML 报告
-    # subprocess.run(["allure", "generate", "./allure-results", "-o", "./allure-allure-report-86%", "--clean"])
-    # subprocess.run(["pytest", "--allure-results", "--allure-allure-report-86%", "--clean-allure-results"])
+    # subprocess.run(["allure", "generate", "./allure-results", "-o", "./allure-allure-report", "--clean"])
+    # subprocess.run(["pytest", "--allure-results", "--allure-allure-report", "--clean-allure-results"])
 
     # 打开 HTML 报告
-    # subprocess.run(["allure", "open", "./allure-allure-report-86%"])
-    # subprocess.run(["allure", "serve", "./allure-allure-report-86%"])
+    # subprocess.run(["allure", "open", "./allure-allure-report"])
+    # subprocess.run(["allure", "serve", "./allure-allure-report"])
 
     success, failure, error = count_allure_results()
     duration = time.time() - start_time

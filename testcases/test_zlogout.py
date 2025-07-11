@@ -13,7 +13,7 @@ class TestLogout:
     @allure.title("登录成功，点击菜单栏头像>退出账号，可退出账号")
     @allure.feature("登录成功，点击菜单栏头像>退出账号，可退出账号")
     @pytest.mark.order(index=-1)#最后执行
-    def test_logout_success(self,driver):
+    def test_ulogout_success(self,driver):
         # 单独运行要加这两行
         # login = LoginPage(driver)
         # login.open()
@@ -27,11 +27,11 @@ class TestLogout:
     @allure.story("实时转写时退出登录")
     @allure.title("正在实时转写过程中，点击退出账号，弹窗提示需先结束实时转写，然后再退出系统，点击确定后再退出账号")
     @allure.feature("正在实时转写过程中，点击退出账号，弹窗提示需先结束实时转写，然后再退出系统，点击确定后再退出账号")
-    def test_logout_while_transcription(self,driver):
+    def test_zlogout_while_transcription(self,driver):
         #单独运行时添加
-        # login = LoginPage(driver)
-        # login.open()
-        # login.login()
+        login = LoginPage(driver)
+        login.open()
+        login.login()
         logout = LogoutPage(driver)
         logout.logout_transcription()
 

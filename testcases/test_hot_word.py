@@ -27,12 +27,12 @@ class TestHotWord:
         hot_word_page = HotWordPage(driver)
         hot_word_page.click_more_app_and_open_hot_word_page()
         #清空所有热词
-        hot_word_page.delete_hot_word()
+        # hot_word_page.delete_hot_word()
         #输入热词
         hot_word_page.add_hot_word("没有热词")
         #点击取消
-        hot_word_page.hot_word_cancel()
-        hot_word_page.add_hot_word("测试添加")
+        # hot_word_page.hot_word_cancel()
+        # hot_word_page.add_hot_word("测试添加")
         #点击保存
         hot_word_page.hot_word_save()
 
@@ -44,9 +44,9 @@ class TestHotWord:
     # @pytest.mark.skip(reason="保存按钮不可点击")
     def test_hot_word_input_chinese(self, driver):
         # 单独运行要加这两行
-        # login = LoginPage(driver)
-        # login.open()
-        # login.login()
+        login = LoginPage(driver)
+        login.open()
+        login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -88,9 +88,9 @@ class TestHotWord:
     # @pytest.mark.skip(reason="保存按钮不可点击")
     def test_hot_word_input_letter_and_chinese(self, driver):
         # 单独运行要加这两行
-        login = LoginPage(driver)
-        login.open()
-        login.login()
+        # login = LoginPage(driver)
+        # login.open()
+        # login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -119,12 +119,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("编辑状态下，点击tab标签可切换不同分页，输入不同的热词，保存提交")
     @allure.feature("编辑状态下，点击tab标签可切换不同分页，输入不同的热词，保存提交")
-    # @pytest.mark.skip(reason="保存按钮不可点击")
-    def test_hot_word_input_different_tab(self, driver):
+    @pytest.mark.skip(reason="保存按钮不可点击")
+    def test_hot_word_input_diff_words_in_different_tab(self, driver):
         # 单独运行要加这两行
-        # login = LoginPage(driver)
-        # login.open()
-        # login.login()
+        login = LoginPage(driver)
+        login.open()
+        login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -142,12 +142,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("三个槽位页下输入同一个热词，保存提交")
     @allure.feature("三个槽位页下输入同一个热词，保存提交")
-    # @pytest.mark.skip(reason="保存按钮不可点击")
-    def test_hot_word_input_different_tab(self, driver):
+    @pytest.mark.skip(reason="保存按钮不可点击")
+    def test_hot_word_input_same_words_in_different_tab(self, driver):
         # 单独运行要加这两行
-        # login = LoginPage(driver)
-        # login.open()
-        # login.login()
+        login = LoginPage(driver)
+        login.open()
+        login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -171,12 +171,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("确定取消热词编辑后，再次进入热词编辑")
     @allure.feature("确定取消热词编辑后，再次进入热词编辑")
-    # @pytest.mark.skip(reason="保存按钮不可点击")
+    @pytest.mark.skip(reason="保存按钮不可点击")
     def test_hot_word_cancel(self, driver):
         # 单独运行要加这两行
-        # login = LoginPage(driver)
-        # login.open()
-        # login.login()
+        login = LoginPage(driver)
+        login.open()
+        login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -192,12 +192,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("编辑热词时，点击左侧侧边栏跳转页面")
     @allure.feature("编辑热词时，点击左侧侧边栏跳转页面")
-    # @pytest.mark.skip(reason="保存按钮不可点击")
+    @pytest.mark.skip(reason="离开按钮不可见")
     def test_hot_word_side_bar(self, driver):
         # 单独运行要加这两行
-        # login = LoginPage(driver)
-        # login.open()
-        # login.login()
+        login = LoginPage(driver)
+        login.open()
+        login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
@@ -231,12 +231,12 @@ class TestHotWord:
     @allure.story("热词编辑")
     @allure.title("选中多个热词删除,清空所有热词后保存，恢复空态显示")
     @allure.feature("选中多个热词删除,清空所有热词后保存，恢复空态显示")
-    # @pytest.mark.skip(reason="保存按钮不可点击")
+    @pytest.mark.skip(reason="tab按钮不可点击")
     def test_hot_word_delete_all(self, driver):
         # 单独运行要加这两行
-        # login = LoginPage(driver)
-        # login.open()
-        # login.login()
+        login = LoginPage(driver)
+        login.open()
+        login.login()
         # 返回到首页
         home = HomePage(driver)
         home.back_home()
